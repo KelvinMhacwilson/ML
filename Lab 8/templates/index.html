@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+
+      h1 {
+        margin-top: 20px;
+        color: #333;
+      }
+
+      form {
+        margin: 20px auto;
+        display: inline-block;
+        text-align: left;
+      }
+
+      textarea {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: darkblue;
+      }
+
+      a {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: blue;
+        text-decoration: none;
+        border: 1px solid blue;
+        border-radius: 5px;
+      }
+
+      a:hover {
+        background-color: blue;
+        color: white;
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 24px;
+      }
+
+      .result.spam {
+        color: red;
+      }
+
+      .result.not-spam {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Email Spam Classifier</h1>
+    <form method="post" action="/predict">
+      <textarea
+        rows="12"
+        cols="60"
+        name="content"
+        placeholder="Enter your email here"
+        autocomplete="off"
+      >{{ email }}</textarea>
+      <div class="button-group">
+        <button type="submit">Verify</button>
+        <a href="/">Reset</a>
+      </div>
+    </form>
+    {% if prediction %}
+    <div class="result {{ 'spam' if prediction == 1 else 'not-spam' }}">
+      <h2>{{ 'Spam' if prediction == 1 else 'Not Spam' }}</h2>
+    </div>
+    {% endif %}
+  </body>
+</html>
